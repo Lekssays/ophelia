@@ -44,32 +44,26 @@
       <div class="nav panel show-shot-analytics">
 				<div class="panel-block views data">
 					<span class="icon"><i class="fa fa-eye"></i></span>
-          0 Views
-					<%#= pluralize(@shot.impressionist_count, 'View') %>
+					<%= pluralize(@video.impressionist_count, 'View') %>
 			  </div>
 				<div class="panel-block comments data">
 						<span class="icon"><i class="fa fa-comment"></i></span>
 						<%= pluralize(@video.comments.count, 'Comment') %>
 				</div>
         <div class="panel-block likes data">
-          <%# if user_signed_in? %>
-            <%# if current_user.liked? @video %>
-              <%#= link_to unlike_video_path(@video), method: :put, class: "unlike_shot" do %>
-                <span class="icon"><i class="fa fa-heart has-text-primary"></i></span>
-                <span class="vote_count"><%#= pluralize(@video.get_likes.size, 'Like') %></span>
-              <%# end %>
-            <%# else %>
-              <%#= link_to like_video_path(@shot), method: :put, class: "like_shot" do %>
+          <% if user_signed_in? %>
+            <% if current_user.liked? @video %>
+              <%= link_to unlike_video_path(@video), method: :put, class: "unlike_video" do %>
                 <span class="icon"><i class="fa fa-heart"></i></span>
-                <span class="vote_count">0 Likes<%#= pluralize(@video.get_likes.size, 'Like') %></span>
-              <%# end %>
-            <%# end %>
-          <%# else %>
-              <%#= link_to like_video_path(@video), method: :put, class: "like_shot" do %>
+                <span class="vote_count"><%= pluralize(@video.get_likes.size, 'Like') %></span>
+              <% end %>
+            <% else %>
+              <%= link_to like_video_path(@video), method: :put, class: "like_video" do %>
                 <span class="icon"><i class="fa fa-heart"></i></span>
-                <span class="vote_count"><%#= pluralize(@video.get_likes.size, 'Like') %></span>
-              <%# end %>
-          <%# end %>
+                <span class="vote_count"><%= pluralize(@video.get_likes.size, 'Like') %></span>
+              <% end %>
+            <% end %>
+          <% end %>
       </div>  
     </div>
   </div>

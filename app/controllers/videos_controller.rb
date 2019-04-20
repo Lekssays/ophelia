@@ -1,6 +1,8 @@
 class VideosController < ApplicationController
-  before_action :set_video, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  before_action :set_video, only: [:show, :edit, :update, :destroy, :like, :unlike]
+  before_action :authenticate_user!, only: [:edit, :update, :destroy, :like, :unlike]
+  impressionist actions: [:show], unique: [:impressionable_type, :impressionable_id, :session_hash]
+
   # GET /videos
   # GET /videos.json
   def index
@@ -58,6 +60,20 @@ class VideosController < ApplicationController
     respond_to do |format|
       format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def like
+    @video.liked_by current_user
+    respond_to do |format|
+      format.html {redirect_back fallback_location: root_path}
+    end
+  end
+
+  def unlike
+    @video.unliked_by current_user
+    respond_to do |format|
+      format.html {redirect_back fallback_location: root_path}
     end
   end
 
