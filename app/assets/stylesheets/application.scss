@@ -14,4 +14,64 @@
  *= require_self
  */
 
+ $pink: #ea4c89;
+ $pink-invert: #fff;
+ 
+ $primary: $pink;
+ $primary-invert: $pink-invert;
+ $link: $primary;
+ $link-hover: darken($primary, 20%);
+ 
+ 
  @import "bulma";
+ 
+ html, body {
+     min-height: 100vh;
+     background-color: #f4f4f4;
+ }
+ 
+ #drop_zone {
+     position: relative;
+     padding: 3rem 0;
+     border: 2px dashed #ccc;
+     text-align: center;
+     border-radius: 6px;
+     background-color: #f8f8f8;
+     &.dragging::before {
+         content: "";
+       position: absolute;
+       left: 0; width: 100%;
+       top: 0; height: 100%;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       font-size: 1.5em;
+       background-color: rgba($primary, .3);
+       pointer-events: none;
+       z-index: 99;
+     }
+     &.fire::before {
+         content: "";
+       position: absolute;
+       left: 0; width: 100%;
+       top: 0; height: 100%;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       font-size: 1.5em;
+       background-color: rgba($green, .3);
+       pointer-events: none;
+       z-index: 99;
+     }
+ }
+ 
+ .notification {
+     border-radius: none;
+ }
+ .notification:not(:last-child) {
+     margin-bottom: 0;
+ }
+ 
+ .visible {
+     display: block !important;
+ }

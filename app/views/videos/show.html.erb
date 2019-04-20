@@ -1,0 +1,59 @@
+<div class="section">
+	<div class="container">
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <h1 class="title is-3"><%= @video.title %></h1>
+      <div class="columns">
+        <div class="column is-8">
+          <span class="by has-text-grey-light">by</span>
+          <div class="user-thumb">
+            <%= gravatar_image_tag(@video.user.email.gsub('spam', 'mdeering'), alt: @video.user.name, gravatar: { size: 20 }); %>
+          </div>
+          <div class="user-name has-text-weight-bold"><%= @video.user.name %> posted <%= time_ago_in_words(@video.created_at) %> ago</div>
+          </span></div>
+      </div>
+      <%= video_tag @video.videofile, :size => "800x600", :controls => true %>
+      <% if user_signed_in? && (current_user.id == @video.user_id) %>		
+        <div class="buttons has-addons">
+          <%= link_to 'Edit', edit_video_path(@video), class: "button is-info" %>
+          <%= link_to 'Delete', video_path, class: "button is-danger", method: :delete, data: { confirm: 'Are you sure you want to delete this video?'} %>
+        </div>
+      <% end %>
+      <p><%= @video.description %></p>      
+    </div>
+    <div class="column">
+      <div class="nav panel show-shot-analytics">
+				<div class="panel-block views data">
+					<span class="icon"><i class="fa fa-eye"></i></span>
+          0 Views
+					<%#= pluralize(@shot.impressionist_count, 'View') %>
+			  </div>
+				<div class="panel-block comments data">
+						<span class="icon"><i class="fa fa-comment"></i></span>
+            0 Comments
+						<%#= pluralize(@shot.comments.count, 'Comment') %>
+				</div>
+        <div class="panel-block likes data">
+          <%# if user_signed_in? %>
+            <%# if current_user.liked? @video %>
+              <%#= link_to unlike_video_path(@video), method: :put, class: "unlike_shot" do %>
+                <span class="icon"><i class="fa fa-heart has-text-primary"></i></span>
+                <span class="vote_count"><%#= pluralize(@video.get_likes.size, 'Like') %></span>
+              <%# end %>
+            <%# else %>
+              <%#= link_to like_video_path(@shot), method: :put, class: "like_shot" do %>
+                <span class="icon"><i class="fa fa-heart"></i></span>
+                <span class="vote_count">0 Likes<%#= pluralize(@video.get_likes.size, 'Like') %></span>
+              <%# end %>
+            <%# end %>
+          <%# else %>
+              <%#= link_to like_video_path(@video), method: :put, class: "like_shot" do %>
+                <span class="icon"><i class="fa fa-heart"></i></span>
+                <span class="vote_count"><%#= pluralize(@video.get_likes.size, 'Like') %></span>
+              <%# end %>
+          <%# end %>
+      </div>  
+    </div>
+  </div>
+  </div>
+</div>

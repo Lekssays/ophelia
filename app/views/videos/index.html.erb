@@ -1,0 +1,26 @@
+<section class="section">
+  <% @videos.each do |video| %>
+    <div class="card">
+      <%= link_to video, class: "video" do %>
+      <div class="card-image">
+        <figure class="image is-4by3">
+          <%= image_tag(video.thumbnail.url) %>
+        </figure>
+      </div>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4"><%= video.title %></p>
+          </div>
+        </div>
+        <% end %>
+        <br>
+        <div class="content">
+          <%= truncate(video.description, length: 60) %>
+          <br>
+          <%= time_ago_in_words(video.created_at) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</section>

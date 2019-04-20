@@ -4,14 +4,68 @@
     <title>Ophelia</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
+ 		<meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+  	<% if flash[:notice] %>
+    	<div class="notification is-primary global-notification">
+  	  	<p class="notice"><%= notice %></p>
+    	</div>
+   	<% end %>
+    <% if flash[:alert] %>
+    <div class="notification is-danger global-notification">
+      <p class="alert"><%= alert %></p>
+    </div>
+    <% end %>
+
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <%= link_to root_path, class:"navbar-item" do %>
+          <h1 class="title has-text-white">Ophelia</h1>
+        <% end  %>
+          <div class="navbar-burger burger" data-target="navbar">
+        </div>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-item">
+              <%= link_to 'Videos', root_path, class:"title is-6 has-text-white" %>
+            </div>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <% if user_signed_in? %>
+              <p class="control">
+                <%= link_to new_video_path, class:"button is-primary"  do %>
+                  <span class="icon is-small"><i class="fa fa-upload"></i></span>
+                  <span>Upload</span>
+                <% end %>
+              </p>
+              <p class="control">
+                <%= link_to current_user.name, edit_user_registration_path, class:"button is-info" %>
+              </p>
+              <p class="control">
+                <%= link_to "Log Out", destroy_user_session_path, method: :delete, class:"button is-info" %>
+              </p>
+              <% else %>
+              <p class="control">
+                 <%= link_to "Sign In", new_user_session_path, class:"button is-primary" %>
+              </p>
+              <p class="control">
+                <%= link_to "Sign Up", new_user_registration_path, class:"button is-success"%>
+              </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav> 
     <%= yield %>
   </body>
 </html>
