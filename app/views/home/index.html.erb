@@ -1,1 +1,16 @@
-<h1> Hello World!</h1>
+<section class="hero is-fullheight video">
+    <div class="hero-video">
+        <video poster="https://i.imgur.com/xFDgQN3.jpg" id="bgvid" playsinline autoplay muted loop>
+            <source src="https://app.coverr.co/s3/mp4/Skater-in-the-Park.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-1"><font color="white">Share your Universe!</font></h1>
+            <%= link_to new_video_path, class:"button is-primary"  do %>
+                <span class="icon is-small"><i class="fa fa-upload"></i></span>
+                <span>Upload</span>
+            <% end %>
+        </div>
+    </div>
+</section>

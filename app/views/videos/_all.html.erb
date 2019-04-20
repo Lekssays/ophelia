@@ -1,0 +1,65 @@
+<section class="section">
+  <div class="videos">
+    <% @videos.each do |video| %>
+      <div class="video-grid-item">
+        <div class="video-wrapper">
+          
+        <%= link_to video, class: "video" do %>
+          <%= image_tag(video.thumbnail_url) %>
+          <div class="video-data">
+            <div class="video-description"><%= truncate(video.description, length: 60) %></div>
+            <div class="video-time">
+              <%= time_ago_in_words(video.created_at) %>
+            </div>
+          </div>
+          <h3 class="video-title"><%= video.title %></h3>
+        <% end %>
+
+        <nav class="level video-analytics">
+          <div class="level-left"></div>
+          <div class="level-right">
+            <div class="level-item views data">
+              <%= link_to video do %>
+                <span class="icon"><i class="fa fa-eye"></i></span>
+                <%= video.impressionist_count %>
+              <% end %>
+            </div>
+            <div class="level-item comments data">
+              <%= link_to video do %>
+                <span class="icon"><i class="fa fa-comment"></i></span>
+                 <%= video.comments.count %>
+              <% end %>
+            </div>
+            <div class="level-item likes">
+              <% if user_signed_in? %>
+                <% if current_user.liked? video %>
+                  <%= link_to unlike_video_path(video), method: :put, class: "unlike_video" do %>
+                    <span class="icon"><i class="fa fa-heart has-text-primary"></i></span>
+                    <span class="vote_count"><%= video.get_likes.size %></span>
+                  <% end %>
+                <% else %>
+                  <%= link_to like_video_path(video), method: :put, class: "like_video" do %>
+                    <span class="icon"><i class="fa fa-heart"></i></span>
+                    <span class="vote_count"><%= video.get_likes.size %></span>
+                  <% end %>
+                <% end %>
+              <% else %>
+                  <%= link_to like_video_path(video), method: :put, class: "like_video" do %>
+                    <span class="icon"><i class="fa fa-heart"></i></span>
+                    <span class="vote_count"><%= video.get_likes.size %></span>
+                  <% end %>
+              <% end %>
+            </div>
+          </div>
+        </nav>
+        </div>
+        <div class="user-data">
+          <div class="user-thumb">
+            <%= gravatar_image_tag(video.user.email.gsub('spam', 'mdeering'), alt: video.user.name, gravatar: { size: 20 }); %>
+          </div>
+          <div class="user-name"><%= video.user.name %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

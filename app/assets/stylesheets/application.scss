@@ -75,3 +75,8 @@
  .visible {
      display: block !important;
  }
+
+ .has-bg-img { 
+    background: url('blob:https://imgur.com/184d7c4c-36fd-4314-8e6d-ecb7e6964aaa')center center; 
+    background-size:cover; 
+ }
