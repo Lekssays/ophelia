@@ -19,7 +19,26 @@
           <%= link_to 'Delete', video_path, class: "button is-danger", method: :delete, data: { confirm: 'Are you sure you want to delete this video?'} %>
         </div>
       <% end %>
-      <p><%= @video.description %></p>      
+      <div class="box">
+        <h1 class="title is-5"> Description </h1>
+        <article class="media">
+          <p><%= @video.description %></p>
+        </article>
+      </div>
+          
+      <section class="comments">
+        <h2 class="subtitle is-5"><%= pluralize(@video.comments.count, 'Comment') %></h2>
+          <%= render @video.comments %>
+        <hr />
+        <% if user_signed_in? %>
+          <div class="comment-form">
+            <h3 class="subtitle is-3">Leave a reply</h3>
+            <%= render 'comments/form' %>
+          </div>
+        <% else %>
+          <div class="content"><%= link_to 'Sign in', new_user_session_path %> to leave a comment.</div>
+        <% end %>
+      </section>  
     </div>
     <div class="column">
       <div class="nav panel show-shot-analytics">
@@ -30,8 +49,7 @@
 			  </div>
 				<div class="panel-block comments data">
 						<span class="icon"><i class="fa fa-comment"></i></span>
-            0 Comments
-						<%#= pluralize(@shot.comments.count, 'Comment') %>
+						<%= pluralize(@video.comments.count, 'Comment') %>
 				</div>
         <div class="panel-block likes data">
           <%# if user_signed_in? %>
