@@ -6,7 +6,12 @@ class VideosController < ApplicationController
   # GET /videos
   # GET /videos.json
   def index
-    @videos = Video.all.order('created_at DESC')
+    @videos = Video.all
+    if params[:search]
+      @videos = Video.search(params[:search]).order("created_at DESC")
+    else
+      @videos = Video.all.order('created_at DESC')
+    end
   end
 
   # GET /videos/1
@@ -76,6 +81,8 @@ class VideosController < ApplicationController
       format.html {redirect_back fallback_location: root_path}
     end
   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
